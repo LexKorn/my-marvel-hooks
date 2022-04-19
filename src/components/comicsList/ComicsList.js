@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 // import PropTypes from 'prop-types';
 
-import useComicsService from '../../services/ComicsService';
+import useMarvelService from '../../services/MarvelService';
 import Spinner from '../spinner/Spinner';
 import ErrorMessage from '../errorMessage/ErrorMessage';
 
@@ -14,7 +14,7 @@ const ComicsList = (props) => {
           [offset, setOffset] = useState(0),
           [comicsEnded, setComicsEnded] = useState(false);
     
-    const {loading, error, getAllComics} = useComicsService();
+    const {loading, error, getAllComics} = useMarvelService();
 
     useEffect(() => {
         onRequest(offset, true);
@@ -70,9 +70,9 @@ const ComicsList = (props) => {
                         }
                     }}> */}
                         <a href='#'>
-                            <img src={item.thumbnail} alt={item.name} style={imgStyle} />
-                            <div className="comics__name">{item.name}</div>
-                            <div className="comics__price">{item.price}$</div>
+                            <img src={item.thumbnail} alt={item.title} style={imgStyle} />
+                            <div className="comics__name">{item.title}</div>
+                            <div className="comics__price">{item.price}</div>
                         </a>                        
                 </li>
             )
