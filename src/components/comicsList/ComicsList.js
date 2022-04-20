@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-// import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 import useMarvelService from '../../services/MarvelService';
 import Spinner from '../spinner/Spinner';
@@ -36,14 +36,6 @@ const ComicsList = (props) => {
         setOffset(offset => offset + 8);
         setComicsEnded(ended);
     }
-
-    // const itemRefs = useRef([]);
-
-    // const focusOnItem = (id) => {
-    //     itemRefs.current.forEach(item => item.classList.remove('comics__item__selected'));
-    //     itemRefs.current[id].classList.add('comics__item__selected');
-    //     itemRefs.current[id].focus();
-    // }
     
 
     function renderItems(arr) {
@@ -54,26 +46,12 @@ const ComicsList = (props) => {
             }
 
             return (
-                <li 
-                    className="comics__item"
-                    // tabIndex={0}
-                    // ref={ el => itemRefs.current[i] = el }
-                    key={item.id}>
-                    {/* onClick={() => {
-                        props.onComicsSelected(item.id);
-                        focusOnItem(i);
-                    }}
-                    onKeyPress={(e) => {
-                        if (e.key === ' ' || e.key === "Enter") {
-                            props.onComicsSelected(item.id);
-                            focusOnItem(i);
-                        }
-                    }}> */}
-                        <a href='#'>
-                            <img src={item.thumbnail} alt={item.title} style={imgStyle} />
-                            <div className="comics__name">{item.title}</div>
-                            <div className="comics__price">{item.price}</div>
-                        </a>                        
+                <li className="comics__item" key={i}>
+                    <Link to={`/comics/${item.id}`}>
+                        <img src={item.thumbnail} alt={item.title} style={imgStyle} />
+                        <div className="comics__name">{item.title}</div>
+                        <div className="comics__price">{item.price}</div>
+                    </Link>                        
                 </li>
             )
         });
@@ -106,9 +84,5 @@ const ComicsList = (props) => {
         </div>
     ) 
 }
-
-// ComicsList.propTypes = {
-//     onComicsSelected: PropTypes.func.isRequired
-// }
     
 export default ComicsList;
