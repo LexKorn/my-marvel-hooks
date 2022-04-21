@@ -46,7 +46,7 @@ const View = ({comic}) => {
     const history = useHistory();
 
     const handleClick = () => {
-        history.push("/");
+        history.goBack();
     }
 
     return (
