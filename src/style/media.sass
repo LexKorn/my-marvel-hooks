@@ -61,6 +61,12 @@
         .bg-decoration
             display: none
 
+        &__baner
+            &-text
+                font-size: 20px
+                line-height: 24px
+                padding-left: 30px
+
     .char
         &__content
             grid-template: auto auto / 100%
@@ -74,6 +80,15 @@
             grid-template-columns: repeat(2, 200px)
             justify-content: center
 
+    .single-comic 
+        grid-template-columns: unset
+        grid-template: auto auto / 293px auto
+        column-gap:  20px
+        row-gap: 40px
+
+        &__back
+            justify-self: start
+
 
 
 @media (max-width: 576px)
@@ -82,6 +97,21 @@
             flex-direction: column
         &__title
             margin-bottom: 15px
+
+        &__baner
+            height: unset
+            padding: 0 20px 0 20px
+            grid-template-columns: unset
+            grid-template-rows: repeat(2, 100px) 60px
+            row-gap: 20px
+            justify-items: center
+
+            &-text
+                order: 3
+                padding-top: 0
+                padding-left: 0                
+                font-size: 24px
+                line-height: 26px
 
     .randomchar
         &__block
@@ -104,3 +134,20 @@
 
         &__basics
             grid-template: auto auto / auto
+
+    .single-comic 
+        grid-template: unset
+        grid-template-rows: 450px auto auto
+        row-gap: 30px
+
+        &__name
+            font-size: 20px
+            line-height: 22px
+
+        &__descr, &__back
+            font-size: 16px
+            line-height: 18px
+
+        &__price
+            font-size: 18px
+            line-height: 20px
