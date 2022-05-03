@@ -35,6 +35,30 @@
             box-shadow: 0 5px 20px $main-color
             transform: translateY(-8px)
 
+        &-enter
+            opacity: 0
+            transform: scale(0.8)
+
+        &-enter-active
+            opacity: 1
+            transform: translateX(0)
+            transition: all 500ms ease-in
+
+        &-enter-done
+            opacity: 1
+            transform: translateX(0)
+
+        &-exit
+            opacity: 1
+
+        &-exit-active
+            opacity: 0
+            transform: scale(0.8)
+            transition: all 500ms ease-in
+
+        &-exit-done
+            opacity: 0
+
     &__name
         font-weight: bold
         font-size: 22px

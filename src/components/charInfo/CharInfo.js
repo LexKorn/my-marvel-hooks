@@ -83,7 +83,7 @@ const View = ({char}) => {
                         while (i < 10) {
                             return (
                                 <li key={i} className="char__comics-item">
-                                    <Link to={`/comics/${item.resourceURI.substring(43)}`} target="_blank">{item.name}</Link>
+                                    <Link to={`/comics/${item.resourceURI.substring(43)}`}>{item.name}</Link>
                                 </li> 
                             )
                         }                       
