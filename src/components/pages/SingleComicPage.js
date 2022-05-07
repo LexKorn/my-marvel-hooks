@@ -5,7 +5,7 @@ import useMarvelService from '../../services/MarvelService';
 import ErrorMessage from '../errorMessage/ErrorMessage';
 import Spinner from '../spinner/Spinner';
 
-import './SingleComicPage.sass';
+import './singleComicPage.sass';
 
 
 const SingleComicPage = () => {

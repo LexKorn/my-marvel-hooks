@@ -1,9 +1,14 @@
 @import '../../style/variables.sass'
 
 .char
-    &__info
+    &__sidebar
         position: sticky
         top: 0
+        display: grid
+        grid-template-rows: auto minmax(127px, auto)
+        row-gap: 30px
+
+    &__info
         padding: 25px
         box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.25)        
         z-index: 5
