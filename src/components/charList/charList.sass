@@ -35,29 +35,40 @@
             box-shadow: 0 5px 20px $main-color
             transform: translateY(-8px)
 
-        &-enter
-            opacity: 0
-            transform: scale(0.8)
+        &-enter 
+            transform: translateX(-500px) rotate(90deg)
+        
+        &-enter-active 
+            transform: translateX(0) rotate(180deg)
+            transition: all 500ms
+        
+        &-enter-done 
+            transform: translateX(0) rotate(0deg)
+            transition: all 500ms
 
-        &-enter-active
-            opacity: 1
-            transform: translateX(0)
-            transition: all 500ms ease-in
+        // &-enter
+        //     opacity: 0
+        //     transform: scale(0.4)
 
-        &-enter-done
-            opacity: 1
-            transform: translateX(0)
+        // &-enter-active
+        //     opacity: 1
+        //     transform: translateX(0)
+        //     transition: all 700ms ease-in
 
-        &-exit
-            opacity: 1
+        // &-enter-done
+        //     opacity: 1
+        //     transform: translateX(0)
 
-        &-exit-active
-            opacity: 0
-            transform: scale(0.8)
-            transition: all 500ms ease-in
+        // &-exit
+        //     opacity: 1
 
-        &-exit-done
-            opacity: 0
+        // &-exit-active
+        //     opacity: 0
+        //     transform: scale(0.4)
+        //     transition: all 700ms ease-in
+
+        // &-exit-done
+        //     opacity: 0
 
     &__name
         font-weight: bold

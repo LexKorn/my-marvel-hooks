@@ -12,7 +12,7 @@ import './charList.sass';
 const CharList = (props) => {
     const [charList, setCharList] = useState([]),
           [newItemLoading, setNewItemLoading] = useState(false),
-          [offset, setOffset] = useState(210),
+          [offset, setOffset] = useState(140),
           [charEnded, setCharEnded] = useState(false);
     
     const {loading, error, getAllCharacters} = useMarvelService();
