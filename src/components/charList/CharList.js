@@ -1,13 +1,28 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import PropTypes from 'prop-types';
 
 import useMarvelService from '../../services/MarvelService';
-import Spinner from '../spinner/Spinner';
 import ErrorMessage from '../errorMessage/ErrorMessage';
+import Spinner from '../spinner/Spinner';
 
 import './charList.sass';
 
+
+const setContent = (process, Component, newItemLoading) => {
+    switch (process) {
+        case 'waiting':
+            return <Spinner />;
+        case 'loading':
+            return newItemLoading ? <Component /> : <Spinner />;
+        case 'error':
+            return <ErrorMessage />;
+        case 'confirmed':
+            return <Component />;
+        default:
+            throw new Error('Unexpected process state');
+    }
+}
 
 const CharList = (props) => {
     const [charList, setCharList] = useState([]),
@@ -15,15 +30,18 @@ const CharList = (props) => {
           [offset, setOffset] = useState(140),
           [charEnded, setCharEnded] = useState(false);
     
-    const {loading, error, getAllCharacters} = useMarvelService();
+    const { getAllCharacters, process, setProcess } = useMarvelService();
 
     useEffect(() => {
         onRequest(offset, true);
+        //eslint-disable-next-line
     }, []);
 
     const onRequest = (offset, initial) => {
         initial ? setNewItemLoading(false) : setNewItemLoading(true);
-        getAllCharacters(offset).then(onCharListLoaded)
+        getAllCharacters(offset)
+            .then(onCharListLoaded)
+            .then(() => setProcess('confirmed'));
     }
 
     const onCharListLoaded = (newCharList) => {
@@ -46,7 +64,6 @@ const CharList = (props) => {
         itemRefs.current[id].focus();
     }
     
-
     function renderItems(arr) {
         const items = arr.map((item, i) => {
             let imgStyle = {'objectFit' : 'cover'};
@@ -60,7 +77,6 @@ const CharList = (props) => {
                         className="char__item"
                         tabIndex={0}
                         ref={ el => itemRefs.current[i] = el }
-                        // key={item.id}
                         onClick={() => {
                             props.onCharSelected(item.id);
                             focusOnItem(i);
@@ -87,16 +103,14 @@ const CharList = (props) => {
         )
     }
 
-    const items = renderItems(charList);
+    const elements = useMemo(() => {
+        return setContent(process, () => renderItems(charList), newItemLoading);
+    }, [process]);
 
-    const errorMessage = error ? <ErrorMessage /> : null;
-    const spinner = loading && !setNewItemLoading ? <Spinner /> : null;
 
     return (
         <div className="char__list">
-            { errorMessage }
-            { spinner }
-            { items }
+            { elements }
             <button 
                 className="button button__main button__long"                   
                 disabled={newItemLoading}

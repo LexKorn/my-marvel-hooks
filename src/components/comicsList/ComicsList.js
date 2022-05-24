@@ -9,21 +9,39 @@ import ErrorMessage from '../errorMessage/ErrorMessage';
 import './comicsList.sass';
 
 
+const setContent = (process, Component, newItemLoading) => {
+    switch (process) {
+        case 'waiting':
+            return <Spinner />;
+        case 'loading':
+            return newItemLoading ? <Component /> : <Spinner />;
+        case 'error':
+            return <ErrorMessage />;
+        case 'confirmed':
+            return <Component />;
+        default:
+            throw new Error('Unexpected process state');
+    }
+}
+
 const ComicsList = (props) => {
     const [comicsList, setComicsList] = useState([]),
           [newItemLoading, setNewItemLoading] = useState(false),
           [offset, setOffset] = useState(16),
           [comicsEnded, setComicsEnded] = useState(false);
     
-    const {loading, error, getAllComics} = useMarvelService();
+    const { loading, error, getAllComics, process, setProcess } = useMarvelService();
 
     useEffect(() => {
         onRequest(offset, true);
+        //eslint-disable-next-line
     }, []);
 
     const onRequest = (offset, initial) => {
         initial ? setNewItemLoading(false) : setNewItemLoading(true);
-        getAllComics(offset).then(onComicsListLoaded)
+        getAllComics(offset)
+            .then(onComicsListLoaded)
+            .then(() => setProcess('confirmed'));
     }
 
     const onComicsListLoaded = (newComicsList) => {
@@ -68,16 +86,10 @@ const ComicsList = (props) => {
         )
     }
 
-    const items = renderItems(comicsList);
-
-    const errorMessage = error ? <ErrorMessage /> : null;
-    const spinner = loading && !setNewItemLoading ? <Spinner /> : null;
 
     return (
         <div className="comics__list">
-            { errorMessage }
-            { spinner }
-            { items }
+            { setContent(process, () => renderItems(comicsList), newItemLoading) }
             <button 
                 className="button button__main button__long"                   
                 disabled={newItemLoading}
