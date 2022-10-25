@@ -55,7 +55,6 @@
                 margin-right: 30px
 
 
-
 @media (max-width: 768px)
     .app
         .bg-decoration
@@ -93,6 +92,16 @@
         &__back
             justify-self: start
 
+    .single-char
+        grid-template-columns: 293px auto 70px
+        column-gap: 25px
+        &__back
+            font-size: 14px
+
+    .randomchar
+        &__decoration
+            right: -27px
+
 
 
 @media (max-width: 576px)
@@ -114,8 +123,8 @@
                 order: 3
                 padding-top: 0
                 padding-left: 0                
-                font-size: 24px
-                line-height: 26px
+                font-size: 23px
+                line-height: 25px
 
     .randomchar
         &__block
@@ -138,6 +147,14 @@
 
         &__basics
             grid-template: auto auto / auto
+        &__search
+            &-form
+                padding: 18px
+                margin-top: 15px
+            &-wrapper
+                display: inline-block
+                input
+                    margin-bottom: 10px
 
     .single-comic 
         grid-template: unset
@@ -155,3 +172,15 @@
         &__price
             font-size: 18px
             line-height: 20px
+
+        &__img
+            width: 270px
+            height: 430px
+
+    .single-char
+        display: block
+        &__back
+            margin-top: 15px
+            font-size: 18px
+        &__img
+            width: 270px
